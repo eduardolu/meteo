@@ -1,8 +1,9 @@
-# React + Vite
+# The weather
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+una aplicacion de tiempo para ver el tiempo actual o de proximas 24h con detalle, o proximos dias.
+usamos un api proporcionado por tercero, y si quiere que funcione tendras que registrar para su uso y tener un apiKey propio.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+para que funcione, tendra que ejecutar lo siguiente:
+-yarn
+-yarn dev
+ya podrias disfrutar de ello.
