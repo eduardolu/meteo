@@ -1,24 +1,26 @@
-import { GetTiempo } from "./GetTiempo";
 import { useEffect, useState } from "react";
-import { ModalAlert } from "./ModalAlert";
 import { Button, Grid, TextField, Typography } from "@mui/material";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
+import Brightness3Icon from "@mui/icons-material/Brightness3";
+import { GetTiempo } from "./GetTiempo";
+import { ModalAlert } from "./ModalAlert";
 
-/* Componente principal donde llama resto de componentes*/
-export const Weather = ({ toggleTheme, isDarkTheme }) => {
+/* Componente principal desde dónde llamamos al resto de los componentes*/
+export const Weather = ({ section, toggleTheme, isDarkTheme }) => {
   const storedCount = sessionStorage.getItem("count");
-  const initialCount = storedCount ? Number(storedCount) : 0; //coger el variable contador de sessionStorage si no existe ponemos 0
-  const [text, setText] = useState("");
-  const [count, setCount] = useState(initialCount);
+  const initialCount = storedCount ? Number(storedCount) : 0; //cogemos la variable contador de sessionStorage y si no existe ponemos 0.
+  const [text, setText] = useState(""); //detectar cambio de texto introducido en TextField.
+  const [count, setCount] = useState(initialCount); // contador de las veces que hemos lanzado consulta (con éxito).
   const [modalVisible, setModalVisible] = useState(false);
-  const [cityN, setcityN] = useState("");
-  const [cambio, setCambio] = useState(false);
+  const [cityN, setcityN] = useState(""); //nombre de ciudad que deseamos buscar.
+  const [cambio, setCambio] = useState(false); //detectar el cambio de ciudad.
 
   const handleChange = (e) => {
     setText(e.target.value);
   };
 
-  /* Lanzar la consulta y comprobar el numero de consulta realizado */
-  /* si supera al numero maximo de consultas lanza la alerta (modal)*/
+  /* Lanzar la consulta y comprobar el número de consultas realizadas */
+  /* si supera el número máximo de consultas lanza la alerta (modal). */
   const handleSubmit = () => {
     if (count >= 5) {
       setModalVisible(true);
@@ -29,7 +31,7 @@ export const Weather = ({ toggleTheme, isDarkTheme }) => {
     setText("");
   };
 
-  /* Lanzar el hadleSubmit con el enter, sin necesidad de pulsar el buton */
+  /* Lanzar el hadleSubmit con el enter, sin necesidad de pulsar el botón */
   const handleKeyDown = (event) => {
     if ((event.key === "Enter" || event.key === 13) && text) {
       handleSubmit();
@@ -56,7 +58,7 @@ export const Weather = ({ toggleTheme, isDarkTheme }) => {
       className="home"
       style={{ backgroundColor: isDarkTheme ? "#222222" : "#f5f3f3" }}
     >
-      <Grid item container>
+      <Grid item container justifyContent="center" alignItems="center">
         <Typography
           variant="h2"
           color="blue"
@@ -89,18 +91,23 @@ export const Weather = ({ toggleTheme, isDarkTheme }) => {
             disabled={!(text && text.length) || modalVisible}
             sx={{ width: "100%" }}
           >
-            buscar
+            Buscar
           </Button>
         </Grid>
 
-        {/* zona donde muestra el resultado de busqueda */}
+        {/* zona donde muestra el resultado de la búsqueda */}
         <Grid item container>
           {cambio ? (
-            <GetTiempo cityN={cityN} count={count} setCount={setCount} />
+            <GetTiempo
+              section={section}
+              cityN={cityN}
+              count={count}
+              setCount={setCount}
+            />
           ) : null}
         </Grid>
 
-        {/* el modal de la alerta que deberia saltar */}
+        {/* El modal de la alerta que debería saltar */}
         <ModalAlert
           count={count}
           setCount={setCount}
@@ -108,9 +115,16 @@ export const Weather = ({ toggleTheme, isDarkTheme }) => {
           setModalVisible={setModalVisible}
         />
       </Grid>
-      <button onClick={toggleTheme}>
-        Toggle Theme ({isDarkTheme ? "Dark" : "Light"})
-      </button>
+
+      {/* botón para activación de modo noche. */}
+      <Grid item container justifyContent="flex-end" alignItems="flex-end">
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={isDarkTheme ? <Brightness7Icon /> : <Brightness3Icon />}
+          onClick={toggleTheme}
+        ></Button>
+      </Grid>
     </Grid>
   );
 };

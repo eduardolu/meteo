@@ -1,14 +1,14 @@
-import { Box, CircularProgress, Grid, LinearProgress } from "@mui/material";
+import { Box, CircularProgress, Grid } from "@mui/material";
 import { useFetchTime } from "../Hooks/useFetchTime";
 import { WeatherToday } from "./GetTiempo/WeatherToday";
 import { WeatherTools } from "./GetTiempo/WeatherTools";
-import ErrorModal from "./ModalAlert/ModalError";
+import { ErrorModal } from "./ModalAlert/ModalError";
 
-/* Este componente llama a useFetchTime para obtener resultado de API y se lo pasa          */
-/* a los componentes como WeatherToday para renderizar el tiempo de hoy, y a                */
-/* WeatherTools para renderizar el tiempo con detalle si es proximos dias y proximas horas  */
+/* Este componente llama a useFetchTime para obtener el resultado de la API y se lo pasa  */
+/* a los componentes como WeatherToday para renderizar el tiempo de hoy, y a WeatherTools */
+/* para renderizar el tiempo con detalle para próximos días y horas.                      */
 
-export const GetTiempo = ({ cityN, count, setCount }) => {
+export const GetTiempo = ({ section, cityN, count, setCount }) => {
   const {
     tiempo,
     current,
@@ -48,7 +48,7 @@ export const GetTiempo = ({ cityN, count, setCount }) => {
             current={current}
             condition={condition}
           />
-          <WeatherTools forecastday={forecastday} />
+          <WeatherTools section={section} forecastday={forecastday} />
         </>
       )}
     </Grid>

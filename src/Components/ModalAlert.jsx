@@ -5,8 +5,8 @@ import { ModalWindow } from "./ModalAlert/ModalWindow";
 /* y nos deja elegir entre dos opciones:                                      */
 /*    -Aceptar: en esta beta se resetea el contador y podemos realizar otras  */
 /*              5 consultas, en en el futuro deberia llevar a la pestaña de   */
-/*              registro o pasos para hacerse premiuns                        */
-/*    -Cancelar: cierra la ventana modal y no nos deja hacer mas consultas    */
+/*              registro o pasos para hacerse premium                         */
+/*    -Cancelar: cierra la ventana modal y no nos deja hacer más consultas    */
 export const ModalAlert = ({
   count,
   setCount,

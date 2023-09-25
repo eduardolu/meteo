@@ -8,8 +8,9 @@ import {
   ListItemText,
 } from "@mui/material";
 
-/* El componente que renderiaza los proximos 24h */
+/* El componente que renderiza las proximas 24h */
 export const GetHours = ({ forecastday }) => {
+  /* comprobar si tenemos información en forecastday */
   if (
     !forecastday ||
     !forecastday.length ||
@@ -19,10 +20,14 @@ export const GetHours = ({ forecastday }) => {
     return null;
 
   const curDate = new Date();
+
+  /* Coger solo las horas que faltan de hoy*/
   const forecastNext24h = forecastday[0].hour.filter(
     (h) => new Date(h.time) >= curDate
   );
   const initialLength = forecastNext24h.length;
+
+  /* Guardar las horas del siguinte dia hasta completar 24h. */
   for (let i = 0; i < forecastday[1].hour.length - initialLength; i++) {
     forecastNext24h.push(forecastday[1].hour[i]);
   }
@@ -48,11 +53,19 @@ export const GetHours = ({ forecastday }) => {
           >
             <ListItem>
               <ListItemAvatar>
-                <Avatar src={hour.condition.icon} alt={hour.time}></Avatar>
+                <Avatar
+                  src={hour.condition.icon}
+                  alt={hour.time}
+                  sx={{ width: 75, height: 75 }}
+                ></Avatar>
               </ListItemAvatar>
               <ListItemText
                 primary={`${hour.temp_c} ºC`}
-                secondary={hour.time.split(/[\s]+/).pop()}
+                secondary={`${hour.time.split(/[\s]+/).pop()} h`}
+              />
+              <ListItemText
+                primary={`Precipitaciones: ${hour.precip_mm} mm`}
+                secondary={`Viento: ${hour.wind_kph} km/h`}
               />
             </ListItem>
           </List>

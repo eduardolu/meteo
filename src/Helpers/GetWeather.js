@@ -1,8 +1,9 @@
-import config from '../../config.json'
+import config from '../../config.json' //Importar el apiKey para no tenerlo a la vista.
 
-export const getWeather =async(buscar)=>{
-  const apiKey = config.API_KEY;
-  const url = `https://weatherapi-com.p.rapidapi.com/forecast.json?q=${ buscar }&days=7&lang=4`
+/* Clase donde preparamos la petición para lanzarla. */
+export const GetWeather =async(cityN)=>{
+  const apiKey = config.API_KEY; 
+  const url = `https://weatherapi-com.p.rapidapi.com/forecast.json?q=${ cityN }&days=7&lang=4`
   const options = {
     method: 'GET',
     headers: {

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { getWeather } from "../Helpers/GetWeather";
+import { GetWeather } from "../Helpers/GetWeather";
 
-/* Hacer la peticion al API usando la uncon getWeather()*/
+/* Hacer la petición a la API usando la función getWeather()*/
 export const useFetchTime = ({ cityN, count, setCount }) => {
     const [tiempo, setTiempo] = useState(null);
     const [current, setCurrent] = useState(null);
@@ -10,22 +10,20 @@ export const useFetchTime = ({ cityN, count, setCount }) => {
     const [isLoading, setisLoading] = useState(true);
     const [error, setError] = useState(false); 
 
-    const getTiempo = async()=>{
+    const GetTiempo = async()=>{
         if (!cityN || !cityN.length) return;
         try{
-            setisLoading(true);
-            // await new Promise(resolve => setTimeout(resolve, 300000));
-
-            const {location,current,forecast} = await getWeather ( cityN );
+            setisLoading(true);//empezar la carga
+            const {location,current,forecast} = await GetWeather ( cityN );
             const {condition} = current;
             const {forecastday} = forecast;
             setForecastday(forecastday);
             setTiempo(location);
             setCurrent(current);
             setCondition(condition);
-            setisLoading(false);
-            setCount(count + 1);
-            setError(false); //no hay error de la peticion
+            setisLoading(false); //todo cargado
+            setCount(count + 1);//suma uno al contador de búsquedas
+            setError(false); //no hay error de la petición
         }catch{
             setError("Hubo un error al obtener el tiempo. Por favor, verifica tu búsqueda o inténtalo de nuevo más tarde.");
             setisLoading(false);
@@ -36,9 +34,9 @@ export const useFetchTime = ({ cityN, count, setCount }) => {
         }
     }
     
-    /* usamos UseEffect para lanzar la petición a API solo cuando cambia el texto a cityN*/
+    /* usamos UseEffect para lanzar la petición a la API solo cuando cambia el texto de cityN. */
     useEffect(()=>{
-        getTiempo();
+        GetTiempo();
     }, [cityN])
 
     return ({

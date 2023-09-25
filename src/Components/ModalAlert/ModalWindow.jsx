@@ -1,6 +1,5 @@
 import { Box, Button, Modal, Stack, Typography } from "@mui/material";
 
-/* El componente Modal de la alerta, donde viene definido */
 const style = {
   borderRadius: 4,
   position: "absolute",
@@ -13,6 +12,7 @@ const style = {
   p: 4,
 };
 
+/* El componente Modal de la alerta cuando alcanza el maximo de consultas */
 export const ModalWindow = ({
   modalVisible,
   setModalVisible,
@@ -33,8 +33,8 @@ export const ModalWindow = ({
           Aviso
         </Typography>
         <Typography id="keep-mounted-modal-description" sx={{ mt: 2 }}>
-          La version de prueba solo permite 5 busquedas, si desea seguir, por
-          favor contrata el paquete premiun. muchas gracias y un saludo
+          La versión de prueba solo permite cinco búsquedas, si desea seguir,
+          por favor contrata el paquete Premiun. Muchas gracias y un saludo
         </Typography>
         <Stack
           direction="row"
@@ -46,11 +46,13 @@ export const ModalWindow = ({
             mt: 2,
           }}
         >
+          {/* Por ahora reniciamos la variable count, en un futuro redireccionaremos a la inscripción */}
           <Button variant="contained" onClick={aceptar}>
-            aceptar
+            Aceptar
           </Button>
+          {/* cerramos la alerta sin cambiar la variable Count */}
           <Button variant="contained" onClick={cancelar}>
-            cancelar
+            Cancelar
           </Button>
         </Stack>
       </Box>

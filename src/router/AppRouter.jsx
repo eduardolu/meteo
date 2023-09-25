@@ -1,14 +1,14 @@
-import { Route, Routes } from "react-router-dom";
-import { GetWeek } from "../Components/GetTiempo/GetWeek";
-import { GetHours } from "../Components/GetTiempo/GetHours";
-import { Weather } from "../Components/Weather";
+import App from "../App";
+import { Navigate, Route, Routes } from "react-router-dom";
 
+/* Configuración de las rutas para diferentes páginas. */
 export const AppRouter = () => {
   return (
     <Routes>
-      <Route path="week" element={<App section={"week"} />} />
-      <Route path="hours" element={<App section={"hours"} />} />
-      <Route path="/*" element={<App section={"week"} />} />
+      <Route path="/" element={<App section={"inicio"} />} />
+      <Route path="dias" element={<App section={"dias"} />} />
+      <Route path="horas" element={<App section={"horas"} />} />
+      <Route path="/*" element={<Navigate to="/" />} />
     </Routes>
   );
 };

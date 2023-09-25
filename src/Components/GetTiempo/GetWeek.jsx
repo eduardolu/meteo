@@ -10,12 +10,13 @@ import {
 } from "@mui/material";
 import React from "react";
 
-/* El componente donde renderizamos el tiempo de proximos 3 dias  */
-/* se que deberia ser de proximos 7, pero el API actual no lo     */
-/* en la version gratis, pero si pagamos, no tenemos que cambiar  */
-/* nada del codigo, ahora que viene preparado y la peticion a API */
-/* lo tiene en cuenta ya                                          */
+/* El componente donde renderizamos el tiempo de los proximos 3 días  */
+/* sé que deberia ser de los proximos 7, pero la API actual no lo     */
+/* incluye en la version gratuita, pero si pagamos no tenemos que     */
+/* cambiar nada del código, ya que está preparado en la peticion de   */
+/* la API.                                                             */
 export const GetWeek = ({ forecastday }) => {
+  /* Comprobar si hay información en forecastday. */
   if (!forecastday || !forecastday.length) return null;
 
   return (
@@ -41,6 +42,7 @@ export const GetWeek = ({ forecastday }) => {
                 <Avatar
                   src={dailyForecast.day.condition.icon}
                   alt={dailyForecast.day.time}
+                  sx={{ width: 85, height: 85 }}
                 />
               </ListItemAvatar>
               <ListItemText
@@ -53,9 +55,11 @@ export const GetWeek = ({ forecastday }) => {
                       variant="body2"
                       color="text.primary"
                     >
-                      Tem. minima:{dailyForecast.day.mintemp_c}ºC
+                      Tem. mínima: {dailyForecast.day.mintemp_c}ºC
                       <br />
-                      Tem. maxima:{dailyForecast.day.maxtemp_c}ºC
+                      Tem. máxima: {dailyForecast.day.maxtemp_c}ºC
+                      <br />
+                      Precipitaciones: {dailyForecast.day.totalprecip_mm}mm
                     </Typography>
                   </React.Fragment>
                 }

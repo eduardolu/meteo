@@ -1,16 +1,36 @@
-import { Button, Grid, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { Link } from "react-router-dom";
+import { Grid, ToggleButton, ToggleButtonGroup } from "@mui/material";
 
-export const WeatherMenu = ({ handleButtonClick, selectedButton }) => {
+/* Menu de opciones de 24h o días. */
+export const WeatherMenu = ({ setSelectedButton, selectedButton }) => {
+  const handleButtonClick = (event, newValue) => {
+    if (newValue == null) return; //por funcionamiento de ToggleButtonGroup devuelve null si volvemos a pulsar el boton.
+    setSelectedButton(newValue);
+  };
   return (
     <Grid item container padding={1}>
       <ToggleButtonGroup
-        value={selectedButton}
-        exclusive
-        onChange={handleButtonClick}
+        exclusive={true}
         fullWidth
+        value={selectedButton}
+        onChange={handleButtonClick}
       >
-        <ToggleButton value="button1">Próximas 24 horas</ToggleButton>
-        <ToggleButton value="button2">Próximos 3 días</ToggleButton>
+        <ToggleButton
+          value="horas"
+          className={selectedButton === "horas" ? "selected" : ""}
+          component={Link}
+          to="/horas"
+        >
+          Próximas 24 horas
+        </ToggleButton>
+        <ToggleButton
+          value="dias"
+          className={selectedButton === "dias" ? "selected" : ""}
+          component={Link}
+          to="/dias"
+        >
+          Próximos 3 días
+        </ToggleButton>
       </ToggleButtonGroup>
     </Grid>
   );

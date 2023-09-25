@@ -1,14 +1,14 @@
 import { Dialog, DialogContent, DialogTitle, Typography } from "@mui/material";
 
-const ErrorModal = ({ open, onClose, errorMessage }) => {
+/* Modal de la ventana de error: salta al tener un error cuando */
+/* lanzamos la consulta a la API.                               */
+export const ErrorModal = ({ open, onClose, errorMessage }) => {
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Error</DialogTitle>
       <DialogContent>
-        <Typography variant="body1">{errorMessage}</Typography>
+        <Typography variant="text">{errorMessage}</Typography>
       </DialogContent>
     </Dialog>
   );
 };
-
-export default ErrorModal;

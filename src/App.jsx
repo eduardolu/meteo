@@ -1,39 +1,34 @@
-import { BrowserRouter } from "react-router-dom";
 import "./App.css";
-import { Weather } from "./Components/Weather";
-import { AppTheme } from "./theme/";
-import { createTheme } from "@mui/material";
 import { useState } from "react";
+import { createTheme } from "@mui/material";
+import { AppTheme } from "./theme/";
+import { Weather } from "./Components/Weather";
 
 function App({ section }) {
-  // Define your light and dark themes
+  // Definir el modo Oscuro
   const lightTheme = createTheme();
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
   const darkTheme = createTheme({
     palette: {
       mode: "dark",
     },
   });
 
-  // State to track the currently selected theme
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
-
-  // Function to toggle between light and dark themes
+  // Donde cambiamos de modo
   const toggleTheme = () => {
     setIsDarkTheme(!isDarkTheme);
   };
 
-  // Select the theme based on the state
+  // comprobamos el modo que está isDarkTheme
   const selectedTheme = isDarkTheme ? darkTheme : lightTheme;
 
   return (
     <AppTheme theme={selectedTheme}>
-      <BrowserRouter>
-        <Weather
-          section={"section"}
-          isDarkTheme={isDarkTheme}
-          toggleTheme={toggleTheme}
-        />
-      </BrowserRouter>
+      <Weather
+        section={section}
+        isDarkTheme={isDarkTheme}
+        toggleTheme={toggleTheme}
+      />
     </AppTheme>
   );
 }
