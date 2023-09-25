@@ -18,7 +18,7 @@ export const ModalAlert = ({
     setModalVisible(false);
   };
 
-  const cerrar = () => {
+  const cancelar = () => {
     setModalVisible(false);
   };
 
@@ -30,7 +30,7 @@ export const ModalAlert = ({
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         aceptar={aceptar}
-        cerrar={cerrar}
+        cancelar={cancelar}
       />
     </Box>
   );

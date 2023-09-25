@@ -1,6 +1,7 @@
 import { createTheme } from "@mui/material";
 import { red } from "@mui/material/colors";
 
+/* El tema principal de la app */
 export const TemaTheme = createTheme({
     palette:{
         primary:{

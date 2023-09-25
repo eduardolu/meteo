@@ -5,14 +5,16 @@ import { WeatherMenu } from "./WeatherTools/WeatherMenu";
 import { Grid } from "@mui/material";
 
 export const WeatherTools = ({ forecastday }) => {
+  if (!forecastday) return null;
+
   const [selectedButton, setSelectedButton] = useState("button1");
 
-  const handleButtonClick = (buttonName) => {
+  const handleButtonClick = (event, buttonName) => {
     setSelectedButton(buttonName);
   };
 
   return (
-    <Grid item>
+    <Grid item container xs={12}>
       <WeatherMenu
         handleButtonClick={handleButtonClick}
         selectedButton={selectedButton}

@@ -8,11 +8,12 @@ body {
 }
 .home {
   /* background: url(https://www.grecia.info/es/wp-content/uploads/sites/49/el-tiempo-hd.jpg); */
-  background: #f5f3f3;
+  /* background: #f5f3f3; */
   aspect-ratio: 9 / 16;
-  width: 400px;
-  max-width: 100%;
+  max-width: 400px;
   display: block;
   box-shadow: 0 0 50px 1px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
+  margin-top: 24px;
+  margin-bottom: 24px;
 }

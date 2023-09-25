@@ -19,25 +19,24 @@ export const GetWeek = ({ forecastday }) => {
   if (!forecastday || !forecastday.length) return null;
 
   return (
-    <Grid item>
+    <Grid item xs={12}>
       <Box
         component="div"
         style={{
           maxHeight: "300px", // Establece una altura máxima
           overflowY: "auto", // Habilita las barras de desplazamiento vertical si el contenido excede la altura máxima
         }}
-        sx={{ p: 2 }}
+        p={1}
       >
         <List
           sx={{
             width: "100%",
-            maxWidth: 360,
             bgcolor: "background.paper",
             borderRadius: "20px",
           }}
         >
           {forecastday.map((dailyForecast, key) => (
-            <ListItem alignItems="flex-start" key={key}>
+            <ListItem alignItems="flex-start" key={key} mb={1}>
               <ListItemAvatar>
                 <Avatar
                   src={dailyForecast.day.condition.icon}

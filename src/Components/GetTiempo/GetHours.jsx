@@ -28,25 +28,25 @@ export const GetHours = ({ forecastday }) => {
   }
 
   return (
-    <Grid item>
+    <Grid item xs={12}>
       <Box
         component="div"
         style={{
           maxHeight: "300px", // Establece una altura máxima
           overflowY: "auto", // Habilita las barras de desplazamiento vertical si el contenido excede la altura máxima
         }}
-        sx={{ p: 2 }}
+        sx={{ p: 1 }}
       >
         {forecastNext24h.map((hour, key) => (
           <List
             sx={{
               width: "100%",
-              maxWidth: 360,
               bgcolor: "background.paper",
               borderRadius: "10px",
             }}
+            key={key}
           >
-            <ListItem key={key}>
+            <ListItem>
               <ListItemAvatar>
                 <Avatar src={hour.condition.icon} alt={hour.time}></Avatar>
               </ListItemAvatar>

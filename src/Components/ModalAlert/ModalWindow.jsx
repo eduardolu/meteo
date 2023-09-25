@@ -17,7 +17,7 @@ export const ModalWindow = ({
   modalVisible,
   setModalVisible,
   aceptar,
-  cerrar,
+  cancelar,
 }) => {
   const handleClose = () => setModalVisible(false);
   return (
@@ -49,8 +49,8 @@ export const ModalWindow = ({
           <Button variant="contained" onClick={aceptar}>
             aceptar
           </Button>
-          <Button variant="contained" onClick={cerrar}>
-            cerrar
+          <Button variant="contained" onClick={cancelar}>
+            cancelar
           </Button>
         </Stack>
       </Box>

@@ -16,7 +16,6 @@ export const getWeather =async(buscar)=>{
       throw new Error('No se pudo obtener el pronóstico del tiempo.');
     }
     const result = await response.json();
-    console.log(result);
     return result;
   } catch (error) {
     console.error(error);
