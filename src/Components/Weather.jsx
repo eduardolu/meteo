@@ -1,10 +1,34 @@
 import { useEffect, useState } from "react";
-import { Box, Button, Grid, IconButton, Stack, TextField, Typography } from "@mui/material";
-import Brightness7Icon from "@mui/icons-material/Brightness7";
-import Brightness3Icon from "@mui/icons-material/Brightness3";
-import SearchIcon from "@mui/icons-material/Search";
+import {
+  Box,
+  Button,
+  Grid,
+  IconButton,
+  Stack,
+  SvgIcon,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { GetTiempo } from "./GetTiempo";
 import { ModalAlert } from "./ModalAlert";
+
+const SunIcon = () => (
+  <SvgIcon>
+    <path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z" />
+  </SvgIcon>
+);
+
+const MoonIcon = () => (
+  <SvgIcon>
+    <path d="M9 2c-1.05 0-2.05.16-3 .46 4.06 1.27 7 5.06 7 9.54 0 4.48-2.94 8.27-7 9.54.95.3 1.95.46 3 .46 5.52 0 10-4.48 10-10S14.52 2 9 2z" />
+  </SvgIcon>
+);
+
+const SearchIcon = () => (
+  <SvgIcon>
+    <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5C16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16a6.5 6.5 0 0 0 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+  </SvgIcon>
+);
 
 /* Componente principal desde dónde llamamos al resto de los componentes*/
 export const Weather = ({ section, toggleTheme, isDarkTheme }) => {
@@ -82,7 +106,7 @@ export const Weather = ({ section, toggleTheme, isDarkTheme }) => {
             aria-label="Cambiar tema"
             onClick={toggleTheme}
           >
-            {isDarkTheme ? <Brightness7Icon /> : <Brightness3Icon />}
+            {isDarkTheme ? <SunIcon /> : <MoonIcon />}
           </IconButton>
         </Stack>
       </Grid>
