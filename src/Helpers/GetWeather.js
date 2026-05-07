@@ -1,24 +1,64 @@
-import config from '../../config.json' //Importar el apiKey para no tenerlo a la vista.
+const translateApiError = (message) => {
+  const messages = {
+    "This endpoint is disabled for your subscription":
+      "Tu suscripción de RapidAPI no tiene activado el pronóstico. Se mostrará el tiempo actual si está disponible.",
+    "You are not subscribed to this API.":
+      "La API key no está suscrita a WeatherAPI.com en RapidAPI.",
+    "Invalid API key.":
+      "La API key no es válida. Revisa el archivo .env.local.",
+  };
+
+  return messages[message] || message || "No se pudo obtener el tiempo.";
+};
 
 /* Clase donde preparamos la petición para lanzarla. */
-export const GetWeather =async(cityN)=>{
-  const apiKey = config.API_KEY; 
-  const url = `https://weatherapi-com.p.rapidapi.com/forecast.json?q=${ cityN }&days=7&lang=4`
+export const GetWeather = async (cityN) => {
+  const apiKey = import.meta.env.VITE_RAPIDAPI_KEY;
+
+  if (!apiKey) {
+    throw new Error("Falta configurar VITE_RAPIDAPI_KEY en el archivo .env.local.");
+  }
+
   const options = {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'X-RapidAPI-Key': apiKey,
-      'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
-    }
+      "X-Rapidapi-Key": apiKey,
+      "X-Rapidapi-Host": "weatherapi-com.p.rapidapi.com",
+      "Content-Type": "application/json",
+    },
   };
-  try {
-    const response = await fetch(url, options);
+
+  const getResponseData = async (response) => {
+    const data = await response.json().catch(() => null);
+
     if (!response.ok) {
-      throw new Error('No se pudo obtener el pronóstico del tiempo.');
+      const apiMessage = data?.message || data?.error?.message;
+      throw new Error(translateApiError(apiMessage));
     }
-    const result = await response.json();
-    return result;
+
+    return data;
+  };
+
+  try {
+    const forecastUrl = `https://weatherapi-com.p.rapidapi.com/forecast.json?q=${ cityN }&days=3&lang=es`;
+    const forecastResponse = await fetch(forecastUrl, options);
+
+    try {
+      const forecastData = await getResponseData(forecastResponse);
+      return { ...forecastData, fallbackReason: null };
+    } catch (error) {
+      if (!error.message.includes("pronóstico")) {
+        throw error;
+      }
+
+      const currentUrl = `https://weatherapi-com.p.rapidapi.com/current.json?q=${ cityN }&lang=es`;
+      const currentResponse = await fetch(currentUrl, options);
+      const currentData = await getResponseData(currentResponse);
+
+      return { ...currentData, fallbackReason: error.message };
+    }
   } catch (error) {
     console.error(error);
+    throw error;
   }
-}
+};

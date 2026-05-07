@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { Button, Grid, TextField, Typography } from "@mui/material";
+import { Box, Button, Grid, IconButton, Stack, TextField, Typography } from "@mui/material";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import Brightness3Icon from "@mui/icons-material/Brightness3";
+import SearchIcon from "@mui/icons-material/Search";
 import { GetTiempo } from "./GetTiempo";
 import { ModalAlert } from "./ModalAlert";
 
@@ -22,18 +23,20 @@ export const Weather = ({ section, toggleTheme, isDarkTheme }) => {
   /* Lanzar la consulta y comprobar el número de consultas realizadas */
   /* si supera el número máximo de consultas lanza la alerta (modal). */
   const handleSubmit = () => {
+    const city = text.trim();
+
     if (count >= 5) {
       setModalVisible(true);
       return;
     }
-    setcityN(text);
+    setcityN(city);
     setCambio(true);
     setText("");
   };
 
   /* Lanzar el hadleSubmit con el enter, sin necesidad de pulsar el botón */
   const handleKeyDown = (event) => {
-    if ((event.key === "Enter" || event.key === 13) && text) {
+    if ((event.key === "Enter" || event.key === 13) && text.trim()) {
       handleSubmit();
     }
     return;
@@ -58,16 +61,30 @@ export const Weather = ({ section, toggleTheme, isDarkTheme }) => {
       className="home"
       style={{ backgroundColor: isDarkTheme ? "#222222" : "#f5f3f3" }}
     >
-      <Grid item container justifyContent="center" alignItems="center">
-        <Typography
-          variant="h2"
-          color="blue"
-          fontWeight="bold"
-          fontFamily="Geométricas"
-          sx={{ textAlign: "center", width: "100%" }}
+      <Grid item xs={12}>
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          px={2}
+          pt={2}
         >
-          El Tiempo
-        </Typography>
+          <Box>
+            <Typography variant="h4" fontWeight={900}>
+              El Tiempo
+            </Typography>
+            <Typography color="text.secondary">
+              Consulta rápida por municipio
+            </Typography>
+          </Box>
+          <IconButton
+            color="primary"
+            aria-label="Cambiar tema"
+            onClick={toggleTheme}
+          >
+            {isDarkTheme ? <Brightness7Icon /> : <Brightness3Icon />}
+          </IconButton>
+        </Stack>
       </Grid>
       <Grid item container>
         <Grid item xs={8} padding={1}>
@@ -81,14 +98,15 @@ export const Weather = ({ section, toggleTheme, isDarkTheme }) => {
             size="small"
             onKeyDown={handleKeyDown}
             sx={{ width: "100%" }}
-            helperText={`Búsquedas restantes: ${5 - count}`}
+            helperText={`Búsquedas restantes: ${Math.max(5 - count, 0)}`}
           />
         </Grid>
         <Grid item xs={4} padding={1} paddingLeft={0}>
           <Button
             variant="contained"
+            startIcon={<SearchIcon />}
             onClick={handleSubmit}
-            disabled={!(text && text.length) || modalVisible}
+            disabled={!text.trim() || modalVisible}
             sx={{ width: "100%" }}
           >
             Buscar
@@ -101,10 +119,20 @@ export const Weather = ({ section, toggleTheme, isDarkTheme }) => {
             <GetTiempo
               section={section}
               cityN={cityN}
-              count={count}
               setCount={setCount}
             />
-          ) : null}
+          ) : (
+            <Grid item xs={12} p={2}>
+              <Box className="empty-state">
+                <Typography variant="h6" fontWeight={700}>
+                  Busca una ciudad
+                </Typography>
+                <Typography color="text.secondary">
+                  Prueba con Madrid, London o Barcelona.
+                </Typography>
+              </Box>
+            </Grid>
+          )}
         </Grid>
 
         {/* El modal de la alerta que debería saltar */}
@@ -116,15 +144,6 @@ export const Weather = ({ section, toggleTheme, isDarkTheme }) => {
         />
       </Grid>
 
-      {/* botón para activación de modo noche. */}
-      <Grid item container justifyContent="flex-end" alignItems="flex-end">
-        <Button
-          variant="contained"
-          color="primary"
-          startIcon={isDarkTheme ? <Brightness7Icon /> : <Brightness3Icon />}
-          onClick={toggleTheme}
-        ></Button>
-      </Grid>
     </Grid>
   );
 };

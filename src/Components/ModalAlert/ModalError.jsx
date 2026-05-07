@@ -4,7 +4,7 @@ import { Dialog, DialogContent, DialogTitle, Typography } from "@mui/material";
 /* lanzamos la consulta a la API.                               */
 export const ErrorModal = ({ open, onClose, errorMessage }) => {
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog open={Boolean(open)} onClose={onClose}>
       <DialogTitle>Error</DialogTitle>
       <DialogContent>
         <Typography variant="text">{errorMessage}</Typography>

@@ -28,8 +28,10 @@ export const GetHours = ({ forecastday }) => {
   const initialLength = forecastNext24h.length;
 
   /* Guardar las horas del siguinte dia hasta completar 24h. */
-  for (let i = 0; i < forecastday[1].hour.length - initialLength; i++) {
-    forecastNext24h.push(forecastday[1].hour[i]);
+  if (forecastday[1]?.hour?.length) {
+    for (let i = 0; i < forecastday[1].hour.length - initialLength; i++) {
+      forecastNext24h.push(forecastday[1].hour[i]);
+    }
   }
 
   return (

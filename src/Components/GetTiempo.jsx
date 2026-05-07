@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Grid } from "@mui/material";
+import { Box, CircularProgress, Grid, Typography } from "@mui/material";
 import { useFetchTime } from "../Hooks/useFetchTime";
 import { WeatherToday } from "./GetTiempo/WeatherToday";
 import { WeatherTools } from "./GetTiempo/WeatherTools";
@@ -8,16 +8,17 @@ import { ErrorModal } from "./ModalAlert/ModalError";
 /* a los componentes como WeatherToday para renderizar el tiempo de hoy, y a WeatherTools */
 /* para renderizar el tiempo con detalle para próximos días y horas.                      */
 
-export const GetTiempo = ({ section, cityN, count, setCount }) => {
+export const GetTiempo = ({ section, cityN, setCount }) => {
   const {
     tiempo,
     current,
     condition,
     isLoading,
     forecastday,
+    fallbackReason,
     error,
     setError,
-  } = useFetchTime({ cityN, count, setCount });
+  } = useFetchTime({ cityN, setCount });
 
   const handleCloseErrorModal = () => {
     setError(null);
@@ -31,9 +32,12 @@ export const GetTiempo = ({ section, cityN, count, setCount }) => {
           justifyContent="center"
           alignItems="center"
           width="100%"
-          height="100%"
+          minHeight={240}
+          flexDirection="column"
+          gap={2}
         >
           <CircularProgress />
+          <Typography color="text.secondary">Consultando el tiempo...</Typography>
         </Box>
       )}
       <ErrorModal
@@ -48,7 +52,11 @@ export const GetTiempo = ({ section, cityN, count, setCount }) => {
             current={current}
             condition={condition}
           />
-          <WeatherTools section={section} forecastday={forecastday} />
+          <WeatherTools
+            section={section}
+            forecastday={forecastday}
+            fallbackReason={fallbackReason}
+          />
         </>
       )}
     </Grid>
