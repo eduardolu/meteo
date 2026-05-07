@@ -16,7 +16,17 @@ Configura `VITE_RAPIDAPI_KEY` desde el panel del proyecto en Cloudflare:
 - Variable: `VITE_RAPIDAPI_KEY`
 - Valor: tu API key de RapidAPI
 
-para que funcione, habrá que ejecutar lo siguiente:
--yarn
--yarn dev
+para que funcione en local, habrá que ejecutar lo siguiente:
+
+```bash
+npm install
+npm run dev
+```
+
 y ya podrias disfrutar de la aplicación.
+
+Configuración recomendada en Cloudflare Pages:
+
+- **Install command**: `npm ci`
+- **Build command**: `npm run build`
+- **Build output directory**: `dist`
