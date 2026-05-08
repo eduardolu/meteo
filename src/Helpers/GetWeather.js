@@ -16,7 +16,11 @@ export const GetWeather = async (cityN) => {
   const apiKey = import.meta.env.VITE_RAPIDAPI_KEY;
 
   if (!apiKey) {
-    throw new Error("Falta configurar VITE_RAPIDAPI_KEY en el archivo .env.local.");
+    throw new Error(
+      import.meta.env.DEV
+        ? "Falta configurar VITE_RAPIDAPI_KEY en el archivo .env.local."
+        : "Falta configurar VITE_RAPIDAPI_KEY en las variables de build de Cloudflare Pages."
+    );
   }
 
   const options = {
