@@ -65,6 +65,30 @@ body {
   z-index: 2;
 }
 
+.home-light {
+  color: #172033;
+}
+
+.home-light .MuiTypography-root {
+  color: #172033;
+}
+
+.home-light .MuiTypography-colorTextSecondary {
+  color: #4a5d72;
+}
+
+.home-dark {
+  color: #eef6ff;
+}
+
+.home-dark .MuiTypography-root {
+  color: #eef6ff;
+}
+
+.home-dark .MuiTypography-colorTextSecondary {
+  color: #bdd0e4;
+}
+
 .weather-card,
 .empty-state {
   border: 1px solid rgba(116, 136, 160, 0.24);
@@ -89,6 +113,15 @@ body {
   box-shadow: 0 16px 32px rgba(0, 0, 0, 0.22);
 }
 
+.home-dark .MuiChip-root {
+  background: rgba(238, 246, 255, 0.12);
+  color: #eef6ff;
+}
+
+.home-dark .MuiChip-icon {
+  color: #bdd0e4;
+}
+
 .home-dark .MuiOutlinedInput-root {
   background: rgba(255, 255, 255, 0.06);
 }
@@ -96,6 +129,11 @@ body {
 .home-dark .MuiAlert-root,
 .home-dark .MuiList-root {
   background: rgba(20, 28, 43, 0.82);
+  color: #eef6ff;
+}
+
+.home-dark .MuiListItemText-secondary {
+  color: #bdd0e4;
 }
 
 @media (max-width: 480px) {
