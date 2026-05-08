@@ -39,9 +39,39 @@ export const Weather = ({ section, toggleTheme, isDarkTheme }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [cityN, setcityN] = useState(""); //nombre de ciudad que deseamos buscar.
   const [cambio, setCambio] = useState(false); //detectar el cambio de ciudad.
+  const [history, setHistory] = useState(() => {
+    try {
+      const storedHistory = sessionStorage.getItem("weatherHistory");
+      const parsedHistory = storedHistory ? JSON.parse(storedHistory) : [];
+      return Array.isArray(parsedHistory) ? parsedHistory : [];
+    } catch {
+      return [];
+    }
+  });
 
   const handleChange = (e) => {
     setText(e.target.value);
+  };
+
+  const addToHistory = (city) => {
+    setHistory((currentHistory) => {
+      const normalizedCity = city.trim();
+      const nextHistory = [
+        normalizedCity,
+        ...currentHistory.filter(
+          (item) => item.toLowerCase() !== normalizedCity.toLowerCase()
+        ),
+      ].slice(0, 5);
+
+      sessionStorage.setItem("weatherHistory", JSON.stringify(nextHistory));
+      return nextHistory;
+    });
+  };
+
+  const launchSearch = (city) => {
+    setcityN(city);
+    setCambio(true);
+    addToHistory(city);
   };
 
   /* Lanzar la consulta y comprobar el número de consultas realizadas */
@@ -53,8 +83,7 @@ export const Weather = ({ section, toggleTheme, isDarkTheme }) => {
       setModalVisible(true);
       return;
     }
-    setcityN(city);
-    setCambio(true);
+    launchSearch(city);
     setText("");
   };
 
@@ -76,7 +105,7 @@ export const Weather = ({ section, toggleTheme, isDarkTheme }) => {
 
   // Actualiza sessionStorage cada vez que 'count' cambia
   useEffect(() => {
-    sessionStorage.setItem("count", count.toString());
+      sessionStorage.setItem("count", count.toString());
   }, [count]);
 
   return (
@@ -141,6 +170,7 @@ export const Weather = ({ section, toggleTheme, isDarkTheme }) => {
         <Grid item container>
           {cambio ? (
             <GetTiempo
+              key={cityN}
               section={section}
               cityN={cityN}
               setCount={setCount}
@@ -158,6 +188,29 @@ export const Weather = ({ section, toggleTheme, isDarkTheme }) => {
             </Grid>
           )}
         </Grid>
+
+        {history.length > 0 && (
+          <Grid item xs={12} px={2} pb={2}>
+            <Box className="history-panel">
+              <Typography variant="subtitle2" fontWeight={700}>
+                Últimas búsquedas
+              </Typography>
+              <Stack direction="row" gap={1} mt={1} flexWrap="wrap">
+                {history.map((city) => (
+                  <Button
+                    key={city}
+                    size="small"
+                    variant={city === cityN ? "contained" : "outlined"}
+                    onClick={() => launchSearch(city)}
+                    disabled={city === cityN}
+                  >
+                    {city}
+                  </Button>
+                ))}
+              </Stack>
+            </Box>
+          </Grid>
+        )}
 
         {/* El modal de la alerta que debería saltar */}
         <ModalAlert

@@ -94,7 +94,8 @@ body {
 }
 
 .weather-card,
-.empty-state {
+.empty-state,
+.history-panel {
   border: 1px solid rgba(116, 136, 160, 0.24);
   border-radius: 8px;
   padding: 18px;
@@ -111,7 +112,8 @@ body {
 }
 
 .home-dark .weather-card,
-.home-dark .empty-state {
+.home-dark .empty-state,
+.home-dark .history-panel {
   border-color: rgba(197, 219, 242, 0.16);
   background: rgba(20, 28, 43, 0.76);
   box-shadow: 0 16px 32px rgba(0, 0, 0, 0.22);
