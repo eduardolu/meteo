@@ -50,14 +50,18 @@ body {
 }
 
 .home-dark::before {
-  opacity: 0.45;
-  filter: saturate(0.8) brightness(0.7);
+  background:
+    linear-gradient(180deg, rgba(9, 16, 30, 0.08), rgba(9, 16, 30, 0.2)),
+    url("/weather-night-panel-art.png") center / cover no-repeat;
+  opacity: 0.9;
+  filter: saturate(1.05) brightness(0.9);
 }
 
 .home-dark::after {
   background:
-    linear-gradient(180deg, rgba(12, 18, 31, 0.76), rgba(12, 18, 31, 0.56) 36%, rgba(12, 18, 31, 0.82)),
-    radial-gradient(circle at 50% 28%, rgba(75, 139, 190, 0.28), transparent 38%);
+    linear-gradient(180deg, rgba(6, 11, 24, 0.5), rgba(6, 11, 24, 0.24) 38%, rgba(6, 11, 24, 0.58)),
+    radial-gradient(circle at 50% 18%, rgba(154, 205, 244, 0.2), transparent 34%),
+    linear-gradient(135deg, rgba(33, 124, 156, 0.18), transparent 46%);
 }
 
 .home > * {
