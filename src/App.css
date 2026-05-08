@@ -49,6 +49,17 @@ body {
   pointer-events: none;
 }
 
+.home-dark::before {
+  opacity: 0.45;
+  filter: saturate(0.8) brightness(0.7);
+}
+
+.home-dark::after {
+  background:
+    linear-gradient(180deg, rgba(12, 18, 31, 0.76), rgba(12, 18, 31, 0.56) 36%, rgba(12, 18, 31, 0.82)),
+    radial-gradient(circle at 50% 28%, rgba(75, 139, 190, 0.28), transparent 38%);
+}
+
 .home > * {
   position: relative;
   z-index: 2;
@@ -69,6 +80,22 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.home-dark .weather-card,
+.home-dark .empty-state {
+  border-color: rgba(197, 219, 242, 0.16);
+  background: rgba(20, 28, 43, 0.76);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.22);
+}
+
+.home-dark .MuiOutlinedInput-root {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.home-dark .MuiAlert-root,
+.home-dark .MuiList-root {
+  background: rgba(20, 28, 43, 0.82);
 }
 
 @media (max-width: 480px) {

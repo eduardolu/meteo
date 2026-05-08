@@ -82,7 +82,7 @@ export const Weather = ({ section, toggleTheme, isDarkTheme }) => {
   return (
     <Grid
       container
-      className="home"
+      className={`home ${isDarkTheme ? "home-dark" : "home-light"}`}
       style={{ backgroundColor: isDarkTheme ? "#222222" : "#f5f3f3" }}
     >
       <Grid item xs={12}>
